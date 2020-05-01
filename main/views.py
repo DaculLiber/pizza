@@ -27,27 +27,6 @@ def basket(request):
 
 	return render(request, "main/basket.html")
 
-@csrf_protect
-def add_to_basket(request):
-	
-	if request.method == 'POST':
-		
-		print(request.body)
-		
-		
-		
-		# json_data = json.loads(request.body) # request.raw_post_data w/ Django < 1.4
-		# try:
-		# 	data = json_data['pizza_name']
-		# except KeyError:
-		# 	return HttpResponseServerError("Malformed data!")
-		
-		# print(data)
-		return HttpResponse("Got json data")
-	
-	return HttpResponseNotAllowed('NO')
-
-
 def register(request):
 	if request.method == "POST":
 		form = NewUserForm(request.POST)

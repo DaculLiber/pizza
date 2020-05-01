@@ -5,11 +5,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import OrdersSerializer
 
-# from main.models import Pizzas, Toppings, Orders
-
 
 # Create your views here.
-
 
 @api_view(['GET'])
 def apiOverview(request):
@@ -25,9 +22,11 @@ def order(request):
     serializer = OrdersSerializer(data=request.data)
 
     if serializer.is_valid():
+        print("SUNT LA SAVE")
         serializer.save()
         print("DONE")
     else:
         print("aici buba")
+        print(serializer.errors)
 
     return Response(serializer.data)

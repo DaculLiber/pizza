@@ -26,5 +26,4 @@ urlpatterns = [
     path("login/", views.login_request, name="login"),
     path("menu/", views.menu, name="menu"),
     path("basket/", views.basket, name="basket"),
-    path("add-to-basket/", views.add_to_basket, name="add_to_basket")
 ]

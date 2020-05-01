@@ -16,6 +16,25 @@ class Pizzas(models.Model):
     def __str__(self):
         return self.name
 
+
+
+class Orders(models.Model):
+    # Orders table
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE) # who has ordered the pizza/pizzas
+    price = models.IntegerField(default=0) # Price of the orde (make a function or something to calculate this)
+    address = models.CharField(max_length=300) # User gives it
+    content = models.ManyToManyField(Pizzas) # Self explainatory
+    date = models.DateTimeField("Date Ordered", default=timezone.now())
+
+    class Meta:
+        verbose_name_plural = "Orders"
+
+    def __str__(self):
+        return f"{self.user} - {self.price}"
+
+
+
 # Create your models here.
 
 class Toppings(models.Model):
@@ -29,7 +48,6 @@ class Toppings(models.Model):
 
     def __str__(self):
         return f"{self.topping}: {self.price}"
-
 
 # class Prices(models.Model):
 #     # Model to link pizza to size and price, aka a pizza can have multiple sizes and every size has a price
@@ -51,19 +69,3 @@ class Toppings(models.Model):
 
 #     def __str__(self):
 #         return f"{self.pizza} {self.size}: {self.price}"
-
-
-class Orders(models.Model):
-    # Orders table
-
-    user = models.ForeignKey(User, on_delete=models.CASCADE) # who has ordered the pizza/pizzas
-    price = models.IntegerField(default=0) # Price of the orde (make a function or something to calculate this)
-    address = models.CharField(max_length=300) # User gives it
-    content = models.ManyToManyField(Pizzas) # Self explainatory
-    date = models.DateTimeField("Date Ordered", default=timezone.now())
-
-    class Meta:
-        verbose_name_plural = "Orders"
-
-    def __str__(self):
-        return f"{self.user} - {self.price}"
