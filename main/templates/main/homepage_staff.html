@@ -1,0 +1,41 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %} 
+    Pizza
+{% endblock %}
+
+{% block meta_block %}
+
+
+
+{% endblock %}
+
+
+{% block body %}
+
+<div class="container-sm">
+    
+    <br>
+    
+    {% for order in orders %}
+    <div class="card">
+        <div class="card-header" style="text-align: center;">
+            <h2>{{ order.user.username }}</h2>
+        </div>
+        <div class="card-body">
+            <p class="card-text" style="font-size: 1.7em;">Order: {{ order.content }}</p>
+            <p class="card-text" style="font-size: 1.7em;">Address: {{ order.address }}</p>
+            <p class="card-text" style="font-size: 1.7em;">Price: <span style="font-weight: bold;">{{ order.price }}</span></p>
+            <p class="card-text" style="font-size: 1.2em;">{{ order.date }}</p>
+            <div class="text-center"><a href="#" class="btn btn-primary text-center">DONE</a></div>
+
+        </div>
+    </div>
+    <br>
+    {% endfor %}
+
+
+</div>
+  
+{% endblock %}

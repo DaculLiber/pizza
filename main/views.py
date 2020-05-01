@@ -10,8 +10,16 @@ from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
 # Create your views here.
 def homepage(request):
-    
-    return render(request, "main/homepage.html")
+	if request.user.is_staff:
+
+		orders = Orders.objects.all()
+		print(orders[0].content.name)
+
+		context = {"orders":orders}
+
+		return render(request, "main/homepage_staff.html", context)
+	else:
+		return render(request, "main/homepage.html")
 
 
 def menu(request):
