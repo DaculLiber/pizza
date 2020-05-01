@@ -24,7 +24,15 @@
             <h2>{{ order.user.username }}</h2>
         </div>
         <div class="card-body">
-            <p class="card-text" style="font-size: 1.7em;">Order: {{ order.content }}</p>
+            <p class="card-text" style="font-size: 1.7em;">
+                Order: 
+                {% for pizza_name in order.content.all %}
+                    {{pizza_name}}
+                    {% if not forloop.last %},  
+                    {% else %}.
+                    {% endif %}
+                {% endfor %}
+            </p>
             <p class="card-text" style="font-size: 1.7em;">Address: {{ order.address }}</p>
             <p class="card-text" style="font-size: 1.7em;">Price: <span style="font-weight: bold;">{{ order.price }}</span></p>
             <p class="card-text" style="font-size: 1.2em;">{{ order.date }}</p>

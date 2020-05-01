@@ -26,4 +26,6 @@ urlpatterns = [
     path("login/", views.login_request, name="login"),
     path("menu/", views.menu, name="menu"),
     path("basket/", views.basket, name="basket"),
+    path("crm/", views.crm, name="crm"),
+    path("add_new_pizza/", views.add_new_pizza, name="add_new_pizza"),
 ]

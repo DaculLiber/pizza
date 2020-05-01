@@ -63,10 +63,6 @@ function add_to_basket(id) {
 
 
 
-
-
     console.log('JSON SENT!');
-
-
 
 } 

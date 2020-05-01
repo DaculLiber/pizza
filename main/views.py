@@ -1,21 +1,27 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseServerError
-from .models import Pizzas, Toppings, Orders
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
-from .forms import NewUserForm
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.models import Group
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
+
+from .forms import NewUserForm, NewPizza
+from .models import Pizzas, Toppings, Orders
+from .decorators import allowedUsers, staffOnly
 
 
 # Create your views here.
+
 def homepage(request):
+# Homepage view, if user is in the staff, he'll get the staff version of the app
+	
 	if request.user.is_staff:
 
 		orders = Orders.objects.all()
-		print(orders[0].content.name)
+		print(orders[0].content.all())
 
-		context = {"orders":orders}
+		context = {"orders":orders, "staff":"yes"}
 
 		return render(request, "main/homepage_staff.html", context)
 	else:
@@ -23,17 +29,38 @@ def homepage(request):
 
 
 def menu(request):
-
+# Menu  view, if user is in the staff, he'll get the staff version of the app
 	pizzas = Pizzas.objects.all()
+	context = {"pizzas":pizzas, "staff":"yes"}
 
-	context = {"pizzas":pizzas}
-
-
-	return render(request, "main/menu.html", context)
+	if request.user.is_staff:
+		return render(request, "main/menu_staff.html", context)
+	else:
+		return render(request, "main/menu.html", context)
 
 def basket(request):
 
 	return render(request, "main/basket.html")
+
+@staffOnly
+def crm(request):
+
+	context = {"staff":"yes"}
+	return HttpResponse("IN PROGRESS!!")
+
+@staffOnly
+def add_new_pizza(request):
+
+	context = {"staff":"yes"}
+
+	if request.method == "POST":
+		form = NewPizza(request.POST)
+		if form.is_valid():
+			form.save()
+			return redirect("main:menu")
+		
+
+	return render(request, "main/add_new_pizza.html", context)
 
 def register(request):
 	if request.method == "POST":

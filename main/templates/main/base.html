@@ -43,7 +43,11 @@
                     
                     <ul class="navbar-nav ml-auto">
                         {% if user.is_authenticated %}
+                        {% if staff == "yes" %}
+                        <li class="nav-item active"><a class="nav-link" href="/crm">CRM</a></li>
+                        {% else %}
                         <li class="nav-item active"><a class="nav-link" href="/basket">Basket</a></li>
+                        {% endif %}
                         <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
                         {% else %}
                         <li class="nav-item"><a class="nav-link" href="/login">Log In</a></li>
@@ -57,10 +61,12 @@
             
         </div>
 
+        {% include 'main/includes/messages.html' %}
+
         <div class="container-fluid">
 
             
-            {% include 'main/includes/messages.html' %}
+            
 
 
             {% block body %}
@@ -76,7 +82,7 @@
 
         </div>
 
-        <footer id="sticky-footer" class="py-4 text-white-50 " style="background-color: rgba(185, 12, 12, 0.35); font-size: 1.4em;">
+        <footer id="sticky-footer" class="py-4 text-white-50" style="background-color: rgba(185, 12, 12, 0.35); font-size: 1.4em;">
             <div class="container text-center">
               <small>Copyright &copy; Sogard-Software</small>
             </div>
