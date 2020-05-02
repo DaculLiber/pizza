@@ -3,7 +3,10 @@ from django.http import JsonResponse
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import OrdersSerializer
+
+from .serializers import OrdersSerializer, PizzasSerializer
+from main.decorators import staffOnly
+from main.models import Pizzas
 
 
 # Create your views here.
@@ -30,3 +33,22 @@ def order(request):
         print(serializer.errors)
 
     return Response(serializer.data)
+
+@staffOnly
+@api_view(['POST'])
+def update(request, pk):
+    pizza = Pizzas.objects.get(id=pk)
+    serializer = PizzasSerializer(isinstance=pizza, data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+    
+    return Response(serializer.data)
+
+@staffOnly
+@api_view(['DELETE'])
+def delete(request, pk):
+    pizza = Pizzas.objects.get(id=pk)
+    pizza.delete()
+
+    return Response("Item successfully deleted!")

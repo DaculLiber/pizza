@@ -5,6 +5,9 @@
     Pizza
 {% endblock %}
 
+{% block meta_block %}
+
+{% endblock %}
 
 {% block body %}
 
@@ -16,7 +19,7 @@
 
 <br>
 
-<div class="row row-cols-1 row-cols-md-3">
+<div class="row row-cols-1 row-cols-md-4">
 
     {% for pizza in pizzas %}
         <div class="col mb-4">
@@ -27,7 +30,8 @@
                 <p class="card-text">{{pizza.description}}</p>
                 <p class="card-text">Price: {{pizza.price}}</p>
                 </div>
-                <button onclick="add_to_basket('{{ forloop.counter0 }}')" class="btn btn-primary">EDIT</button>
+                <button onclick="update_func()" class="btn btn-primary">EDIT</button>
+                <button onclick="delete_func('{{pizza.id}}')" class="btn btn-primary" style="background-color: red;">DELETE</button>
             </div>
         </div>
     {% endfor %}
@@ -36,4 +40,6 @@
 
 
 
+
+<script src="{% static 'main/staff.js' %}"></script>
 {% endblock %}

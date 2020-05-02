@@ -12,7 +12,7 @@ class PizzasSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Pizzas
-        fields = ['name']
+        fields = '__all__'
 
 
 class OrdersSerializer(serializers.ModelSerializer):

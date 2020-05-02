@@ -22,4 +22,6 @@ app_name = "api"
 urlpatterns = [
     path('', views.apiOverview, name="apiOverview"),
     path('order/', views.order, name="order"),
+    path('update/<str:pk>', views.update, name="update"),
+    path('delete/<str:pk>', views.delete, name="delete"),
 ]

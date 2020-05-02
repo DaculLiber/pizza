@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
 from .forms import NewUserForm, NewPizza
 from .models import Pizzas, Toppings, Orders
-from .decorators import allowedUsers, staffOnly
+from .decorators import allowedUsers, staffOnly, unauthenticatedOnly, authenticatedOnly
 
 
 # Create your views here.
@@ -38,16 +38,19 @@ def menu(request):
 	else:
 		return render(request, "main/menu.html", context)
 
+@authenticatedOnly
 def basket(request):
 
 	return render(request, "main/basket.html")
 
+@authenticatedOnly
 @staffOnly
 def crm(request):
 
 	context = {"staff":"yes"}
 	return HttpResponse("IN PROGRESS!!")
 
+@authenticatedOnly
 @staffOnly
 def add_new_pizza(request):
 
@@ -62,6 +65,7 @@ def add_new_pizza(request):
 
 	return render(request, "main/add_new_pizza.html", context)
 
+@unauthenticatedOnly
 def register(request):
 	if request.method == "POST":
 		form = NewUserForm(request.POST)
@@ -82,11 +86,7 @@ def register(request):
 				  "main/register.html",
 				  context={"form":form})
 
-def logout_request(request):
-	logout(request)
-	messages.info(request, "Logged out successfully!")
-	return redirect("main:homepage")
-
+@unauthenticatedOnly
 def login_request(request):
 	if request.method == "POST":
 		form = AuthenticationForm(request, data=request.POST)
@@ -109,3 +109,8 @@ def login_request(request):
 				  "main/login.html",
 				  {"form":form})
 
+@authenticatedOnly
+def logout_request(request):
+	logout(request)
+	messages.info(request, "Logged out successfully!")
+	return redirect("main:homepage")
