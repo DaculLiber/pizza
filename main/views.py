@@ -52,6 +52,15 @@ def crm(request):
 
 @authenticatedOnly
 @staffOnly
+def edit(request, id):
+	
+	pizza = Pizzas.objects.get(id=id)
+	context = {"pizza":pizza, "staff":"yes"}
+
+	return render(request, "main/edit.html", context)
+
+@authenticatedOnly
+@staffOnly
 def add_new_pizza(request):
 
 	context = {"staff":"yes"}

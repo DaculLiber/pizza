@@ -1,0 +1,101 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %} 
+    Pizza
+{% endblock %}
+
+{% block meta_block %}
+
+<script>
+$(document).ready(function(){
+    $("#sticky-footer").addClass("py-4 text-white-50 fixed-bottom");
+});
+
+$("document").ready(function(){
+
+    $("#id_button").click(function(){
+
+        const name = $("#id_name").val();
+        const description = $("#id_description").val();
+        const price = $("#id_price").val();
+        // const photo = $("#id_photo").val();
+
+        id_edit = $(location).attr('href').substr(27);
+
+        const url = `/api/update/${id_edit}`;
+        const req = new XMLHttpRequest();
+        req.open('POST', url);
+        
+        req.setRequestHeader('X-CSRFToken', csrftoken);
+        req.setRequestHeader('content-type', 'application/json');
+
+
+        req.onreadystatechange = function() { // Call a function when the state changes.
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                // Request finished. Do processing here.
+            }
+        }
+
+        edit_config = {
+            "name":name,
+            "description":description,
+            "price":price,
+            // "photo":photo
+        };
+        
+        // location.reload();
+        req.send(edit_config);
+
+        console.log("DONE");
+        
+
+        $(location).attr('href', '/menu');
+    });
+
+});
+
+</script>
+
+
+{% endblock %}
+
+
+{% block body %}
+
+<div class="container-sm">
+    
+    <br>
+    <br><br><br><br>
+    
+
+    <div class="form-group">
+        <label for="exampleFormControlInput1">Name</label>
+        <input type="text" name="name" class="form-control" id="id_name" placeholder="{{pizza.name}}">
+    </div>
+
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Description</label>
+        <textarea class="form-control" name="description" id="id_description" rows="3">{{pizza.description}}</textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="exampleFormControlInput1">Price</label>
+        <input type="number" name="price" class="form-control" id="id_price" placeholder="{{pizza.price}}">
+    </div>
+
+    <!-- <div class="form-group">
+        <label for="exampleFormControlFile1">Photo</label>
+        <input type="file" name="photo" accept="image/*" class="form-control-file" id="id_photo">
+    </div> -->
+
+    <br>
+    <button id="id_button" class="btn btn-primary btn-lg btn-block" >Submit Modifications</button>
+
+
+
+</div>
+
+<script src="{% static 'main/staff.js' %}"></script>
+  
+{% endblock %}

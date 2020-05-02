@@ -1,14 +1,10 @@
-function update_func(id)
-{
-    console.log(id);
-}
 
 
+// Whenever the delete button is pressed the delete_func is called
+// and makes an ajax call to our api to delete certain item (requires a staff user to access link)
 function delete_func(id)
 {
-
     const url = `/api/delete/${id}`;
-
     const req = new XMLHttpRequest();
     req.open('DELETE', url);
     
@@ -23,8 +19,6 @@ function delete_func(id)
     }
     
     location.reload();
-    
     req.send();
-
 }
 

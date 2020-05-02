@@ -22,15 +22,16 @@
 <div class="row row-cols-1 row-cols-md-4">
 
     {% for pizza in pizzas %}
-        <div class="col mb-4">
+        <div class="col mb-4" id="{{pizza.id}}">
             <div class="card h-100 overlay">
                 <img src="/static/{{pizza.photo}}" class="card-img-top" alt="...">
-                <div class="card-body">
-                <h5 class="card-title" id="{{ forloop.counter0 }}">{{pizza.name}}</h5>
-                <p class="card-text">{{pizza.description}}</p>
-                <p class="card-text">Price: {{pizza.price}}</p>
+                <div class="card-body" id="{{forloop.counter0}}">
+                    <h5 class="card-title" id="{{ forloop.counter0 }}">{{pizza.name}}</h5>
+                    <p class="card-text">{{pizza.description}}</p>
+                    <p class="card-text">Price: {{pizza.price}}</p>
                 </div>
-                <button onclick="update_func()" class="btn btn-primary">EDIT</button>
+                <!-- <button onclick="update_func()" class="btn btn-primary">EDIT</button> -->
+                <!-- <a href="/edit/{{pizza.id}}" class="btn btn-primary">EDIT</a> -->
                 <button onclick="delete_func('{{pizza.id}}')" class="btn btn-primary" style="background-color: red;">DELETE</button>
             </div>
         </div>
