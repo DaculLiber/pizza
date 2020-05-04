@@ -5,6 +5,16 @@
     Pizza
 {% endblock %}
 
+{% block meta_block %}
+
+<script>
+
+    retrievedData = localStorage.getItem("basket_content");
+    console.log("MERGE FAZA", JSON.parse(retrievedData));
+
+</script> 
+
+{% endblock %}
 
 {% block body %}
 
@@ -39,9 +49,39 @@
                     <button class="btn" style="background-color: red;">X</button>
                 </div>
             </div>
+
+            <div class="card mb-3 text-center" style="width: 20rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <button class="btn" style="background-color: red;">X</button>
+                </div>
+            </div>
+
+            <div class="card mb-3 text-center" style="width: 20rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <button class="btn" style="background-color: red;">X</button>
+                </div>
+            </div>
+
+            <div class="card mb-3 text-center" style="width: 20rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <button class="btn" style="background-color: red;">X</button>
+                </div>
+            </div>
+        
+        
+        
         </div>
 
-        <div class="col-lg-8 my-auto">
+        <div class="col-lg-8">
 
             <div class="card text-center">
                 <img class="card-img-top" src="{% static 'main/img/toscana.jpg' %}" alt="Card image cap">

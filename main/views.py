@@ -32,7 +32,10 @@ def menu(request):
 		context = {"pizzas":pizzas, "staff":"yes"}
 		return render(request, "main/menu_staff.html", context)
 	else:
-		context = {"pizzas":pizzas}
+		if request.user.is_authenticated:
+			context = {"pizzas":pizzas, "logged_in":True}
+		else:
+			context = {"pizzas":pizzas}
 		return render(request, "main/menu.html", context)
 
 @authenticatedOnly
