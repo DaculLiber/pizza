@@ -17,12 +17,8 @@ def homepage(request):
 # Homepage view, if user is in the staff, he'll get the staff version of the app
 	
 	if request.user.is_staff:
-
 		orders = Orders.objects.all()
-		print(orders[0].content.all())
-
 		context = {"orders":orders, "staff":"yes"}
-
 		return render(request, "main/homepage_staff.html", context)
 	else:
 		return render(request, "main/homepage.html")
@@ -31,11 +27,12 @@ def homepage(request):
 def menu(request):
 # Menu  view, if user is in the staff, he'll get the staff version of the app
 	pizzas = Pizzas.objects.all()
-	context = {"pizzas":pizzas, "staff":"yes"}
 
 	if request.user.is_staff:
+		context = {"pizzas":pizzas, "staff":"yes"}
 		return render(request, "main/menu_staff.html", context)
 	else:
+		context = {"pizzas":pizzas}
 		return render(request, "main/menu.html", context)
 
 @authenticatedOnly

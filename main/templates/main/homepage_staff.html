@@ -7,6 +7,21 @@
 
 {% block meta_block %}
 
+<script>
+
+    $("document").ready(function(){
+
+        const height_container = $("#meow").height();
+        const height_document = $(document).height();
+
+        
+        console.log(height_document);
+        console.log(height_container);
+
+    });
+
+
+</script>
 
 
 {% endblock %}
@@ -14,24 +29,18 @@
 
 {% block body %}
 
-<div class="container-sm">
+<div class="container-sm" id="meow">
     
     <br>
     
     {% for order in orders %}
     <div class="card">
         <div class="card-header" style="text-align: center;">
-            <h2>{{ order.user.username }}</h2>
+            <h2>{{ order.user }}</h2>
         </div>
         <div class="card-body">
             <p class="card-text" style="font-size: 1.7em;">
-                Order: 
-                {% for pizza_name in order.content.all %}
-                    {{pizza_name}}
-                    {% if not forloop.last %},  
-                    {% else %}.
-                    {% endif %}
-                {% endfor %}
+                Order: {{ order.content }}
             </p>
             <p class="card-text" style="font-size: 1.7em;">Address: {{ order.address }}</p>
             <p class="card-text" style="font-size: 1.7em;">Price: <span style="font-weight: bold;">{{ order.price }}</span></p>

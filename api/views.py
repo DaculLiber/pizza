@@ -41,7 +41,12 @@ def update(request, pk):
     serializer = PizzasSerializer(isinstance=pizza, data=request.data)
 
     if serializer.is_valid():
+        print("SUNT LA SAVE")
         serializer.save()
+        print("DONE")
+    else:
+        print("aici buba")
+        print(serializer.errors)
     
     return Response(serializer.data)
 

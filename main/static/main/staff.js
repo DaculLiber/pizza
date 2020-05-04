@@ -2,7 +2,7 @@
 
 // Whenever the delete button is pressed the delete_func is called
 // and makes an ajax call to our api to delete certain item (requires a staff user to access link)
-function delete_func(id)
+function delete_func(id, pizza_name)
 {
     const url = `/api/delete/${id}`;
     const req = new XMLHttpRequest();
@@ -18,7 +18,15 @@ function delete_func(id)
         }
     }
     
-    location.reload();
+    
     req.send();
+    location.reload();
+    $('#body_content').html(pizza_name);
+    $('#alert').show();
+    setTimeout(function() { 
+        $('#alert').hide(); 
+    }, 2000);
+
+    
 }
 

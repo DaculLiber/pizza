@@ -7,14 +7,14 @@
 
 {% block meta_block %}
 
+
 {% endblock %}
 
 {% block body %}
 
 
-<br>
 
-<br><br><br><br><br>
+<br>
 <a href="/add_new_pizza" class="btn btn-primary btn-lg btn-block" role="button">Add new Pizza!</a>
 
 <br>
@@ -32,7 +32,7 @@
                 </div>
                 <!-- <button onclick="update_func()" class="btn btn-primary">EDIT</button> -->
                 <!-- <a href="/edit/{{pizza.id}}" class="btn btn-primary">EDIT</a> -->
-                <button onclick="delete_func('{{pizza.id}}')" class="btn btn-primary" style="background-color: red;">DELETE</button>
+                <button onclick="delete_func('{{pizza.id}}', '{{pizza.name}}')" class="btn btn-primary" style="background-color: red;">DELETE</button>
             </div>
         </div>
     {% endfor %}

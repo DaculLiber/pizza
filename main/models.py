@@ -21,10 +21,10 @@ class Pizzas(models.Model):
 class Orders(models.Model):
     # Orders table
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE) # who has ordered the pizza/pizzas
+    user = models.CharField(max_length=300) # who has ordered the pizza/pizzas
     price = models.IntegerField(default=0) # Price of the orde (make a function or something to calculate this)
     address = models.CharField(max_length=300) # User gives it
-    content = models.ManyToManyField(Pizzas) # Self explainatory
+    content = models.CharField(max_length=1000) # Self explainatory
     date = models.DateTimeField("Date Ordered", default=timezone.now())
 
     class Meta:

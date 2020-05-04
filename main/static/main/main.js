@@ -1,11 +1,27 @@
-
-
-console.log("Meow");
-
-
 // document.addEventListener('DOMContentLoaded', () => {
 
 // });
+
+// Variables
+var content_array = [];
+var retrievedData = localStorage.getItem("basket_content");
+console.log(JSON.parse(retrievedData));
+
+$("document").ready(function(){
+
+    const height_window = $(window).height();
+    const height_body = $("body").height();
+
+    if(height_body <= height_window)
+    {
+        $("#sticky-footer").addClass("py-4 text-white-50 fixed-bottom");
+    }
+    else
+    {
+        $("#sticky-footer").removeClass("fixed-bottom");
+    }
+
+});
 
 
 function getCookie(name) {
@@ -25,7 +41,7 @@ function getCookie(name) {
 }
 var csrftoken = getCookie('csrftoken');
 
-console.log(csrftoken);
+// console.log(csrftoken);
 
 
 function add_to_basket(id) {
@@ -33,14 +49,28 @@ function add_to_basket(id) {
 
     const pizza_name = document.getElementById(id).innerHTML;
 
-    $('#body_content').html(pizza_name); 
-    $('.toast').toast('show');
+    content_array.push(pizza_name);
 
-    console.log(pizza_name);
+    // JSON.stringify(content_array);
+    localStorage.setItem("basket_content", JSON.stringify(content_array));
+
+    console.log("content", content_array);
+
+
+    $('#body_content').html(`${pizza_name} added to the basket!`);
+    $('#alert').show();
+    setTimeout(function() { 
+        $('#alert').hide(); 
+    }, 2000);
+
+
+} 
 
 
 
-    const req = new XMLHttpRequest();
+/*
+
+const req = new XMLHttpRequest();
     req.open('POST', '/add-to-basket/');
     
     req.setRequestHeader('X-CSRFToken', csrftoken);
@@ -65,4 +95,5 @@ function add_to_basket(id) {
 
     console.log('JSON SENT!');
 
-} 
+
+*/
