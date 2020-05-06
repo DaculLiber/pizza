@@ -43,14 +43,39 @@
             total_sum += parseInt(basket_array[i].price);
         }
 
+        console.log(csrftoken);
+
         $("#price_id").html(total_sum);
+        user = $("#user_id").val();
 
         $("#id_submit").click(function(){
 
             let address = $("#id_address").val();
             if(address)
             {
-                window.location.href = "/success";
+                const req = new XMLHttpRequest();
+                req.open('POST', '/api/order/', true);
+                
+                req.setRequestHeader('X-CSRFToken', csrftoken);
+                req.setRequestHeader('content-type', 'application/json');
+
+                req.onreadystatechange = function() { // Call a function when the state changes.
+                    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                        // Request finished. Do processing here.
+                    }
+                }
+                
+                const pizza = {
+                                "user": `${user}`,
+                                "price": `${total_sum}`,
+                                "address": `${address}`,
+                                "content": "test"
+                                };
+
+                req.send(pizza);
+                console.log('JSON SENT!');
+                
+                // window.location.href = "/success";
             }
             else
             {

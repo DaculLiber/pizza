@@ -5,7 +5,7 @@
 // Variables
 var content_array = [];
 var retrievedData = localStorage.getItem("basket_content");
-console.log(JSON.parse(retrievedData));
+// console.log(JSON.parse(retrievedData));
 
 $("document").ready(function(){
 
@@ -77,7 +77,7 @@ function add_to_basket(id) {
 
 /*
 
-const req = new XMLHttpRequest();
+    const req = new XMLHttpRequest();
     req.open('POST', '/add-to-basket/');
     
     req.setRequestHeader('X-CSRFToken', csrftoken);

@@ -17,12 +17,9 @@ class PizzasSerializer(serializers.ModelSerializer):
 
 class OrdersSerializer(serializers.ModelSerializer):
     
-    user = UserSerializer(many=True, read_only=True)
-    content = PizzasSerializer(many=True, read_only=True)
-    
     class Meta:
         model = Orders
-        fields = '__all__'
+        fields = ["user", "price", "address", "content"]
 
 
 '''
