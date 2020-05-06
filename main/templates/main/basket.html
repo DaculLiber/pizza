@@ -13,6 +13,7 @@
     var total_sum = 0;
     retrieved_data = localStorage.getItem("basket_content");
     basket_array = JSON.parse(retrievedData);
+    var basket_array_json = "";
 
     function delete_item(id)
     {
@@ -39,11 +40,21 @@
             </div>
             `
             );
-
             total_sum += parseInt(basket_array[i].price);
+
+            if(i != (basket_array.length-1))
+            {
+                basket_array_json += (basket_array[i].name + ', ');
+            }
+            else
+            {
+                basket_array_json += basket_array[i].name;
+            }
+            
         }
 
         console.log(csrftoken);
+        console.log("ORDER: ", basket_array_json);
 
         $("#price_id").html(total_sum);
         user = $("#user_id").val();
@@ -54,7 +65,7 @@
             if(address)
             {
                 const req = new XMLHttpRequest();
-                req.open('POST', '/api/order/', true);
+                req.open('POST', '/api/order/');
                 
                 req.setRequestHeader('X-CSRFToken', csrftoken);
                 req.setRequestHeader('content-type', 'application/json');
@@ -65,21 +76,37 @@
                     }
                 }
                 
-                const pizza = {
-                                "user": `${user}`,
-                                "price": `${total_sum}`,
-                                "address": `${address}`,
-                                "content": "test"
-                                };
-
-                req.send(pizza);
-                console.log('JSON SENT!');
+                const pizza = {"user":user, "price":total_sum, "address":address, "content":basket_array_json};
+                // const pizza = new Object();
+                // pizza.user = "macncheese";
+                // pizza.price = 20;
+                // pizza.address = "test";
+                // pizza.content = "test";
                 
-                // window.location.href = "/success";
+                // {
+                //                 "user": `${user}`,
+                //                 "price": `${total_sum}`,
+                //                 "address": `${address}`,
+                //                 "content": "test"
+                //                 };
+
+                req.send(JSON.stringify(pizza));
+                console.log(pizza);
+
+                basket_array_json = "";
+                basket_array = [];
+                localStorage.setItem("basket_content", JSON.stringify(basket_array));
+                total_sum = 0;
+                
+                window.location.href = "/success";
             }
             else
             {
-                console.log("NU ai adresa");
+                $('#body_content').html("Please enter your address!");
+                $('#alert').show();
+                setTimeout(function() { 
+                    $('#alert').hide(); 
+                }, 2000);
             }
 
 

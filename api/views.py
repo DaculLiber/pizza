@@ -6,7 +6,7 @@ from rest_framework.response import Response
 
 from .serializers import OrdersSerializer, PizzasSerializer
 from main.decorators import staffOnly
-from main.models import Pizzas
+from main.models import Pizzas, Orders
 
 
 # Create your views here.
@@ -19,6 +19,14 @@ def apiOverview(request):
     }
 
     return Response(api_urls)
+
+@staffOnly
+@api_view(['DELETE'])
+def done(request, pk):
+    order = Orders.objects.get(id=pk)
+    order.delete()
+
+    return Response("Order successfully deleted!")
 
 @api_view(['POST'])
 def order(request):

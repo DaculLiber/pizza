@@ -24,4 +24,5 @@ urlpatterns = [
     path('order/', views.order, name="order"),
     path('update/<str:pk>', views.update, name="update"),
     path('delete/<str:pk>', views.delete, name="delete"),
+    path('done/<str:pk>', views.done, name="done"),
 ]

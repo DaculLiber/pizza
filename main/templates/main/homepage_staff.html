@@ -10,15 +10,17 @@
 <script>
 
     $("document").ready(function(){
+        // const height_container = $("#meow").height();
+        // const height_document = $(document).height();
 
-        const height_container = $("#meow").height();
-        const height_document = $(document).height();
 
-        
-        console.log(height_document);
-        console.log(height_container);
 
     });
+
+    function delete_order(id)
+    {
+
+    }
 
 
 </script>
@@ -33,26 +35,42 @@
     
     <br>
     
-    {% for order in orders %}
-    <div class="card">
-        <div class="card-header" style="text-align: center;">
-            <h2>{{ order.user }}</h2>
-        </div>
-        <div class="card-body">
-            <p class="card-text" style="font-size: 1.7em;">
-                Order: {{ order.content }}
-            </p>
-            <p class="card-text" style="font-size: 1.7em;">Address: {{ order.address }}</p>
-            <p class="card-text" style="font-size: 1.7em;">Price: <span style="font-weight: bold;">{{ order.price }}</span></p>
-            <p class="card-text" style="font-size: 1.2em;">{{ order.date }}</p>
-            <div class="text-center"><a href="#" class="btn btn-primary text-center">DONE</a></div>
+    {% if orders %}
+        {% for order in orders %}
+        <div class="card" id="{{order.id}}">
+            <div class="card-header" style="text-align: center;">
+                <h2>{{ order.user }}</h2>
+            </div>
+            <div class="card-body">
+                <p class="card-text" style="font-size: 1.7em;">
+                    Order: {{ order.content }}
+                </p>
+                <p class="card-text" style="font-size: 1.7em;">Address: {{ order.address }}</p>
+                <p class="card-text" style="font-size: 1.7em;">Price: <span style="font-weight: bold;">{{ order.price }}</span></p>
+                <p class="card-text" style="font-size: 1.2em;">{{ order.date }}</p>
+                <div class="text-center"><button onclick="delete_order('{{order.id}}')" class="btn btn-primary text-center" >DONE</button></div>
 
+            </div>
         </div>
-    </div>
-    <br>
-    {% endfor %}
+        <br>
+        {% endfor %}
+    {% else %}
+        <div class="card">
+            <div class="card-header" style="text-align: center;">
+                <h3>È vuoto qui</h3>
+            </div>
+            <div class="card-body">
+                <p class="card-text" style="font-size: 1.7em;">
+                    <h1>It's empty here chef :P</h1>
+                </p>
+
+            </div>
+        </div>
+        <br>
+    {% endif %}
 
 
 </div>
   
+<script src="{% static 'main/staff.js' %}"></script>
 {% endblock %}
