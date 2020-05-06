@@ -47,9 +47,16 @@ var csrftoken = getCookie('csrftoken');
 function add_to_basket(id) {
 
 
-    const pizza_name = document.getElementById(id).innerHTML;
+    const pizza_name = $(`#${id}`).html();
+    const pizza_price = $(`#price_${id}`).html();
 
-    content_array.push(pizza_name);
+    const obj = new Object();
+    obj.name = pizza_name;
+    obj.price = pizza_price;
+
+    console.log(obj);
+
+    content_array.push(obj);
 
     // JSON.stringify(content_array);
     localStorage.setItem("basket_content", JSON.stringify(content_array));

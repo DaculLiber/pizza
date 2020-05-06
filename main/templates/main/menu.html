@@ -18,7 +18,7 @@
                 <div class="card-body">
                 <h5 class="card-title" id="{{ forloop.counter0 }}">{{pizza.name}}</h5>
                 <p class="card-text">{{pizza.description}}</p>
-                <p class="card-text">Price: {{pizza.price}}</p>
+                <p class="card-text" >Price: <span id="price_{{ forloop.counter0 }}">{{pizza.price}}</span></p>
                 </div>
                 {% if logged_in %}
                 <button onclick="add_to_basket('{{ forloop.counter0 }}')" class="btn btn-primary">Add to basket!</button>

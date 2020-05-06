@@ -28,5 +28,6 @@ urlpatterns = [
     path("basket/", views.basket, name="basket"),
     path("crm/", views.crm, name="crm"),
     path("add_new_pizza/", views.add_new_pizza, name="add_new_pizza"),
-    path("edit/<str:id>", views.edit, name="edit")
+    path("edit/<str:id>", views.edit, name="edit"),
+    path("success/", views.success, name="success")
 ]

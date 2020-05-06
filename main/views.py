@@ -41,7 +41,8 @@ def menu(request):
 @authenticatedOnly
 def basket(request):
 
-	return render(request, "main/basket.html")
+	context = {"user_name":request.user.username}
+	return render(request, "main/basket.html", context)
 
 @authenticatedOnly
 @staffOnly
@@ -49,6 +50,11 @@ def crm(request):
 
 	context = {"staff":"yes"}
 	return HttpResponse("IN PROGRESS!!")
+
+@authenticatedOnly
+def success(request):
+
+	return render(request, "main/success.html")
 
 @authenticatedOnly
 @staffOnly

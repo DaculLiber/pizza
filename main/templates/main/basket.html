@@ -9,8 +9,62 @@
 
 <script>
 
-    retrievedData = localStorage.getItem("basket_content");
-    console.log("MERGE FAZA", JSON.parse(retrievedData));
+    // VARIABLES
+    var total_sum = 0;
+    retrieved_data = localStorage.getItem("basket_content");
+    basket_array = JSON.parse(retrievedData);
+
+    function delete_item(id)
+    {
+        // console.log($(`#${id}`).html());
+        $(`#${id}`).remove();
+        total_sum -= basket_array[id].price;
+        basket_array.splice(id, 1);
+        localStorage.setItem("basket_content", JSON.stringify(basket_array));
+        location.reload();
+    }
+
+    $("document").ready(function(){
+
+        for (let i = 0; i < basket_array.length; i++)
+        {
+            $("#basket_items").append(
+            `
+            <div class="card mb-3 text-center" style="width: 20rem;"  id="${i}">
+                <div class="card-body">
+                    <h5 class="card-title">${basket_array[i].name}</h5>
+                    <p class="card-text"><strong>Price: </strong>${basket_array[i].price}</p>
+                    <button onclick="delete_item(${i})" class="btn" style="background-color: red; color: white; font-size: large; font-weight: bold;">X</button>
+                </div>
+            </div>
+            `
+            );
+
+            total_sum += parseInt(basket_array[i].price);
+        }
+
+        $("#price_id").html(total_sum);
+
+        $("#id_submit").click(function(){
+
+            let address = $("#id_address").val();
+            if(address)
+            {
+                window.location.href = "/success";
+            }
+            else
+            {
+                console.log("NU ai adresa");
+            }
+
+
+        });
+
+        
+
+        console.log("total sum is", total_sum);
+
+    });
 
 </script> 
 
@@ -20,76 +74,32 @@
 
 <div class="container-sm">
     
-    <div class="row mt-5">
+    <input type="hidden" id="user_id" value={{user_name}}>
+
+    <div class="row my-5" >
         
-        <div class="col-lg-4">
-            <div class="card mb-3 text-center" style="width: 20rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <button class="btn" style="background-color: red;">X</button>
-                </div>
-            </div>
+        <div class="col-lg-4" id="basket_items">
+            
 
-            <div class="card mb-3 text-center" style="width: 20rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <button class="btn" style="background-color: red;">X</button>
-                </div>
-            </div>
-
-            <div class="card mb-3 text-center" style="width: 20rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <button class="btn" style="background-color: red;">X</button>
-                </div>
-            </div>
-
-            <div class="card mb-3 text-center" style="width: 20rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <button class="btn" style="background-color: red;">X</button>
-                </div>
-            </div>
-
-            <div class="card mb-3 text-center" style="width: 20rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <button class="btn" style="background-color: red;">X</button>
-                </div>
-            </div>
-
-            <div class="card mb-3 text-center" style="width: 20rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <button class="btn" style="background-color: red;">X</button>
-                </div>
-            </div>
-        
-        
-        
         </div>
 
         <div class="col-lg-8">
 
             <div class="card text-center">
                 <img class="card-img-top" src="{% static 'main/img/toscana.jpg' %}" alt="Card image cap">
-                <div class="card-body">
-                  <p class="card-text">The best pizza you'll ever eat in your life!</p>
-                  <a href="" class="btn btn-primary">Continue to order</a>
+                
+                <div class="card-body font-weight-bold">
+                    <p class="card-text">The best pizza you'll ever eat in your life!</p>
+                    <p class="card-text">Total price: <span id="price_id"></span></p>
+                    <div class="form-group">
+                        <label for="id_address">Address:</label>
+                        <input type="text" class="form-control" id="id_address" placeholder="Address">
+                    </div>
+                    <a class="btn btn-primary" id="id_submit">Continue to order</a>
                 </div>
-              </div>
+            
+            
+            </div>
 
         </div>
 
